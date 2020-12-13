@@ -1,0 +1,66 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Tic Tac Toe</title>
+  <meta name="Tic Tac Toe" content="Game">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <header>
+    <h1 class="header">Tic-Tac-Toe</h1>
+    <p class="sub">Play:</p>
+  </header>
+  
+  <div id="game-ctn">
+    <div class="btn-ctn-play">
+      <button class="play-btn" id="play-btn-ai">vs Computer<img src="img/play.png" 
+        alt="Play button"></button>
+      <button class="play-btn" id="play-btn">vs Player<img src="img/play.png" 
+        alt="Play button"></button>  
+    </div>
+
+  <table class="box-ctn">
+    <tr>
+      <td class="box" id="0"></td>
+      <td class="box" id="1"></td>
+      <td class="box" id="2"></td>
+    </tr>
+    <tr>
+      <td class="box" id="3"></td>
+      <td class="box" id="4"></td>
+      <td class="box" id="5"></td>
+    </tr>
+    <tr>
+      <td class="box" id="6"></td>
+      <td class="box" id="7"></td>
+      <td class="box" id="8"></td>
+    </tr>
+  </table>
+
+  <h1 class="win-display"></h1>
+  
+  <div class="btn-ctn">
+    <button class="back-btn">Go back<img src="img/back.png" 
+      alt="Go to main page">
+    </button>
+
+    <button class="replay-btn">Replay<img src="img/replay.png" 
+      alt="Replay game">
+    </button>
+  </div>
+
+  <footer>Created by<a href="https://github.com/Gkuzin13">
+    <img src="/img/git-img.png"></a></footer>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>
