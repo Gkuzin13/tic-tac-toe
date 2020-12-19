@@ -27,6 +27,9 @@ const gameBoard = (() => {
     // Board array
     let board = [];
     
+    // Winner combination array
+    let winnerCombo = [];
+    
     // Function when making a move
     const playerTurn = (function () {
         const box = document.querySelectorAll('.box');
@@ -102,6 +105,7 @@ const gameBoard = (() => {
     // Checks for a winner
     winCheck = () => {
         turns++;
+
         // Seperates each player X | O move into 2 diffrent arrays
         let xPlays = board.reduce((a, e, i) => 
         (e === player1.mark) ? a.concat(i) : a, []);
@@ -113,26 +117,28 @@ const gameBoard = (() => {
             if (combo.every(elem => xPlays.indexOf(elem) > -1)) {
                 
                 gameBoard.winner = 'p1';
-                console.log(gameBoard.winner)
+                gameBoard.winnerCombo = combo;
                 
             } else if (combo.every(elem => oPlays.indexOf(elem) > -1)) {
                 
                 gameBoard.winner = 'p2';
-                console.log(gameBoard.winner)
+                gameBoard.winnerCombo = combo;
 
-            } else if (winner === null && gameBoard.winner === undefined 
-                && turns === 9) {
+            } else if (gameBoard.winner == null && gameBoard.winner == undefined 
+                && turns == 9) {
                 gameBoard.winner = 'tie';
-                console.log(gameBoard.winner)
+                gameBoard.winnerCombo = combo;
             };
         };
         // Display the winner
-        console.log(turns, gameBoard.winner)
+        console.log(turns, gameBoard.winner, winnerCombo)
         winDisplay();
+        return winnerCombo;
     };
     // Resets board and display
     gameReset = () => {
         gameBoard.winner = null;
+        gameBoard.winnerCombo = undefined;
         player1.turn = true;
         player2.turn = false;
         player2.ai = false;
@@ -142,20 +148,31 @@ const gameBoard = (() => {
     };
     console.log(board, winner, player1.turn, player2.turn)
 
-    return { winCheck, gameReset, playerTurn, board, player2 };
+    return { winCheck, gameReset, playerTurn, board, player2, winnerCombo };
 })();
 
 // Controls the display
 const displayController = (() => {
     const boxCtn = document.querySelector('.box-ctn');
+    const box = document.querySelectorAll('.box');
     const winCtn = document.querySelector('.win-display');
     // Display winner function 
     winDisplay = () => {
+        // Displays the win combo
+        combDisplay = () => {
+            for(i = 0; i < gameBoard.winnerCombo.length; i++) {
+                document.getElementById(gameBoard.winnerCombo[i]).style.
+                  backgroundColor = 'rgba(0, 0, 0, 0.040)';
+            };
+        };    
+        // Displays the winner
         if(gameBoard.winner === 'p1') {
             winCtn.textContent = 'X Wins the round!';
+            combDisplay();
 
         } else if (gameBoard.winner === 'p2') {
             winCtn.textContent = 'O Wins the round!';
+            combDisplay();
             
         } else if (gameBoard.winner === 'tie') {
             winCtn.textContent = 'It\'s a tie!';
@@ -166,7 +183,7 @@ const displayController = (() => {
 
         replayBtn.style.display = 'flex';
         backBtn.style.display = 'flex';
-        console.log(gameBoard.winner)
+        console.log(gameBoard.winnerCombo)
     };
     // Board render 
     gamePlay = () => {
@@ -204,12 +221,11 @@ const displayController = (() => {
     // Resets board and display
     gameReplay = () => {
         gameBoard.gameReset();
-        
-        const box = document.querySelectorAll('.box');
 
         box.forEach( box => {
             box.textContent = '';
             box.style.opacity = '0';
+            box.style.backgroundColor = 'white';
         });
 
         replayBtn.style.display = 'none';
