@@ -120,12 +120,14 @@ const gameBoard = (() => {
                 gameBoard.winner = 'p2';
                 console.log(gameBoard.winner)
 
-            } else if (gameBoard.winner === null && turns == 9) {
+            } else if (winner === null && gameBoard.winner === undefined 
+                && turns === 9) {
                 gameBoard.winner = 'tie';
                 console.log(gameBoard.winner)
             };
         };
         // Display the winner
+        console.log(turns, gameBoard.winner)
         winDisplay();
     };
     // Resets board and display
@@ -164,6 +166,7 @@ const displayController = (() => {
 
         replayBtn.style.display = 'flex';
         backBtn.style.display = 'flex';
+        console.log(gameBoard.winner)
     };
     // Board render 
     gamePlay = () => {
